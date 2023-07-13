@@ -1,0 +1,72 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Filme | Rateflix </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <img id="img" src="../../usuario/html/LOGO RATEFLIX.jpg">
+    </head>
+    <link rel="stylesheet" href="../css/styleFilmes.css">
+<body>
+    <div class="container  text-center"> 
+        <h1 id="text"> FILMES </h1>
+    </div>
+    <div class="container bg-primary">   
+          <h5>Encontre o Seu Filme Favorito</h5>    
+    </div>         
+    <div class="container">
+        <div class="row" id="result">
+
+        </div>
+
+    </div>
+    <a href="../../usuario/html/home.html"><button type="button" class="btn btn-danger"> Voltar</button></a>
+ 
+</body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+   
+    <script>
+       
+        fetch('http://localhost:3001/rateflix/filmes', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+        },
+                    
+        })
+        .then(response => response.json())
+        .then(data =>  {
+                const filmes = document.getElementById('result')
+                             
+            data.forEach(item => {
+                const columnDiv = document.createElement('div');
+                // columnDiv.classList.add('col');
+    
+                const containerDiv = document.createElement('div');
+                containerDiv.classList.add('container');
+                containerDiv.classList.add('mb-5');
+    
+                const containerBodyDiv = document.createElement('div');
+                containerBodyDiv.classList.add('container-body');
+    
+                const filme = document.createElement('h1');
+                filme.classList.add('container-title');
+                filme.textContent = item.filme;
+
+                const sinopse = document.createElement('h5');
+                filme.classList.add('container-body');
+                sinopse.textContent =item.sinopse
+    
+                filme.appendChild(sinopse)
+                containerBodyDiv.appendChild(filme);
+                containerDiv.appendChild(containerBodyDiv);
+                columnDiv.appendChild(containerDiv);
+    
+                filmes.appendChild(columnDiv);
+            });
+    
+        });
+    
+    </script>

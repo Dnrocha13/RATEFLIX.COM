@@ -1,0 +1,30 @@
+body {
+    background-color: black;
+    font-family: Verdana, Tahoma, sans-serif;
+    padding: 50px;
+    margin: 60px ;   
+    
+}
+
+#img {
+    padding-left: 50px;
+    margin-bottom: 10px;
+    margin-top: -50px;
+}
+#text{
+    color: red;
+    padding: 5px;
+}
+#result{
+   
+    color: rgb(237, 230, 228);
+    font-size: large;
+}
+
+#cadastroForm{
+    color: rgb(237, 230, 228);
+    font-size: large;
+}
+
+
+

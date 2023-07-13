@@ -1,0 +1,91 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Novo Filme | Rateflix </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <img id="img" src="../../usuario/html/LOGO RATEFLIX.jpg">
+    </head>
+    <body>
+        <link rel="stylesheet" href="../css/styleFilmes.css">
+        <div class="container mt-5">
+            <h3 id="text">  Aqui é você quem Faz!</h3>
+            <h3 id="text">É você quem registra o Filme </h3>
+            <h3 id="text">Coloca na Categoria que quer</h3>
+            <h3 id="text"> E até mesmo escreve, do seu jeito, a Sinopse do filme</h3>
+            
+            <form id="cadastroForm">
+                <div class="form-group">
+                    <label for="nome">Nome do Filme</label>
+                    <input type="text" placeholder="Filme" class="form-control" id="filme" required>
+                </div>
+                <div class="form-group">
+                    <label for="select">Qual a Categoria?</label>
+                    <select  id="categoria">
+                        <option value="">Selecione a categoria</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sinopse">Sinopse do Filme (até 255 caracteres) </label>
+                    <textarea id="textarea" class="form-control"> </textarea> 
+                </div>
+                <button type="submit" class="btn-danger">Registrar Filme</button>
+                <a href="../../usuario/html/home.html"><button type="button" class="btn btn-danger"> Voltar</button></a>
+
+            </form>  
+
+        </div>     
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+
+       function getCategorias() {
+            fetch('http://localhost:3000/rateflix/categorias', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                
+            })
+            .then(response => response.json())
+            .then(data =>  {
+                
+                
+            const categoriaComboBox = document.getElementById('categoria');
+
+      // Limpar as opções existentes da combobox
+            categoriaComboBox.innerHTML = '';
+
+      // Adicionar as opções da lista de categorias à combobox
+            data.forEach(categoria => {
+                const option = document.createElement('option');
+                option.value = categoria.id;
+                option.text = categoria.nome;
+                categoriaComboBox.appendChild(option);
+            });
+            });
+        }
+
+        getCategorias();
+        function novoFilme(event) {
+            event.preventDefault();
+            const filme = document.getElementById('filme').value;
+            const categoria = document.getElementById('categoria').value
+            const textarea = document.getElementById('textarea').value
+            let filmeInstance = JSON.stringify({"id_categoria":categoria,"filme": filme, "sinopse":textarea});
+            
+            fetch('http://localhost:3001/rateflix/filmes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: filmeInstance 
+            }).then(response => response.json())
+            .then(data => alert('Filme cadastrado com sucesso, clique em voltar') )
+        }
+        document.getElementById('cadastroForm').addEventListener('submit',novoFilme);
+    </script>        
+    </body>
+</html>

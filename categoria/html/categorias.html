@@ -1,0 +1,73 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Categorias | Rateflix </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <img id="img" src="../../usuario/html/LOGO RATEFLIX.jpg">
+    </head>
+    <link rel="stylesheet" href="../css/styleCategoria.css">
+<body>
+    <div class="nome text-center"> 
+        <h3 id="text"> Suas Categorias</h3>
+    </div>
+    <div class="container bg-info">   
+          <h3>Selecione a Categoria desejada</h3>    
+    </div>    
+         
+    <div class="container">
+        
+       <div class="row" id="result">
+            
+               
+                
+        
+            
+        </div>
+
+    </div>
+       <a href="../../usuario/html/home.html"><button type="button" class="btn btn-danger"> Voltar</button></a>
+  
+</body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+       
+        fetch('http://localhost:3000/rateflix/categorias', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+        },
+                
+        })
+        .then(response => response.json())
+        .then(data =>  {
+                const categoriaFilmes = document.getElementById('result')
+                         
+    data.forEach(item => {
+            const columnDiv = document.createElement('div');
+            columnDiv.classList.add('col');
+
+            const cardDiv = document.createElement('div');
+            cardDiv.classList.add('card');
+            cardDiv.classList.add('mb-3');
+
+            const cardBodyDiv = document.createElement('div');
+            cardBodyDiv.classList.add('card-body');
+
+            const title = document.createElement('h5');
+            title.classList.add('card-title');
+            title.textContent = item.nome;
+
+            cardBodyDiv.appendChild(title);
+            cardDiv.appendChild(cardBodyDiv);
+            columnDiv.appendChild(cardDiv);
+
+            categoriaFilmes.appendChild(columnDiv);
+  });
+
+        });
+
+     </script>

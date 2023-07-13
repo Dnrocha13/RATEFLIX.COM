@@ -1,0 +1,57 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> acessar minha conta | Rateflix</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <img id="img" src="LOGO RATEFLIX.jpg">  
+
+    </head>
+    <body>      
+        <link rel="stylesheet" href="../css/styleLogin.css">  
+        <div class="container mt-5">
+            <h3 id="text">Faça o Login e Entre</h3>
+            <form id="cadastroLogin">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="exemplo@email.com" class="form-control" id="email" required>
+                </div>
+                <div class="form-group"> 
+                    <label for="senha">Senha</label>
+                    <input type="password" placeholder="No mínimo de 6 caracteres, com uma letra maiúscula e um caracter especial" class="form-control" id="senha" required>
+                </div>
+                 <button type="submit" class="btn btn-danger">Login</button>
+                 <a href="index.html"><button type="button" class="btn btn-danger"> Cadastrar</button></a>
+                 <a href="../../paginaInicial/html/paginaInicial.html"><button type="button" class="btn btn-danger"> Voltar</button></a>
+
+            </form>
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+        <script>
+            function logarUsuario(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                const senha = document.getElementById('senha').value;
+                let body = JSON.stringify({email, senha});
+                console.log(body);
+                fetch('http://localhost:3002/rateflix/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({email, senha})
+                }).then(response => response.json())
+                .then(data => window.location.href = "home.html"
+
+                ).catch(error => console.error(error));
+                }
+                
+                document.getElementById('cadastroLogin').addEventListener('submit', logarUsuario);
+        </script>
+    </body>
+
+</html>

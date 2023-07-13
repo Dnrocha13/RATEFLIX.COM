@@ -1,0 +1,46 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nova Categoria | Rateflix </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <img id="img" src="../../usuario/html/LOGO RATEFLIX.jpg">
+    </head>
+    <body>
+        <link rel="stylesheet" href="../css/styleCategoria.css">
+        <div class="container mt-5">
+            <h3 id="text">Crie aqui sua prórpia Categoria</h3>
+            <form id="cadastroForm">
+                <div class="form-group">
+                    <label for="nome">Nova Categoria</label>
+                    <input type="text" placeholder="Coloque aqui a nova categoria desejada" class="form-control" id="nome" required>
+                </div>
+                <button type="submit" class="btn-danger">Criar Nova Categoria</button>
+                <a href="../../usuario/html/home.html"><button type="button" class="btn btn-danger"> Voltar</button></a>
+
+            </form>  
+
+        </div>     
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        function criarCategoria(event) {
+            event.preventDefault();
+            const categoria = document.getElementById('nome').value;
+            let body = JSON.stringify({categoria});
+            console.log(body);
+            fetch('http://localhost:3000/rateflix/categorias', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({categoria})   
+            }).then(response => response.json())
+            .then(data => window.location.href = "../../usuario/html/home.html")
+        }
+        document.getElementById('cadastroForm').addEventListener('submit',criarCategoria);
+    </script>        
+    </body>
+</html>
