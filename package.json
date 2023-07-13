@@ -1,0 +1,19 @@
+{
+  "name": "rateflix",
+  "version": "1.0.0",
+  "description": "API DE AVALIAÇÃO DE FILMES, FEITO COM MICROSSERVIÇOS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dnrocha13/RATEFLIX.COM.git"
+  },
+  "author": "diego rocha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dnrocha13/RATEFLIX.COM/issues"
+  },
+  "homepage": "https://github.com/Dnrocha13/RATEFLIX.COM#readme"
+}
