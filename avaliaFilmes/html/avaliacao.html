@@ -1,0 +1,114 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AVALIAÇÃO DOS FILMES | Rateflix </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <img id="img" src="../../usuario/html/LOGO RATEFLIX.jpg">
+    </head>
+    <link rel="stylesheet" href="../css/styleAvaliaFilmes.css">
+    <body>
+    <form id="cadastroForm">
+        <div class="container  text-center"> 
+            <h1 id="text"> MURAL DE AVALIAÇÃO </h1>
+        </div>
+        <div class="container bg-primary">   
+            <h5>Encontre a Sua Avaliação</h5>    
+        </div>      
+
+        <div class="row" id="result">
+            <label for="select">Qual Filme?</label>
+            <select id="filme">
+                <option value="result">Selecione o Filme</option>
+            </select>
+          
+
+        </div>
+        <button type="submit" class="btn-danger">Procurar</button>
+        <a href="../../usuario/html/home.html"><button type="button" class="btn btn-danger"> Voltar</button></a>
+    </form>    
+    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function getFilmes() {
+            fetch('http://localhost:3001/rateflix/filmes', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                const filmesComboBox = document.getElementById('filme');
+                filmesComboBox.innerHTML = '';
+
+                data.forEach(filme => {
+                    const option = document.createElement('option')
+                    option.value = filme.idFilmes
+                    option.text = filme.filme
+                    filmesComboBox.appendChild(option);
+                    
+                });
+                });
+            }
+            getFilmes()
+        function avaliaFilmes(event) {
+            event.preventDefault();
+
+            const avaliaFilmes = document.getElementById('result');
+            fetch('http://localhost:3003/rateflix/avaliacao', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+            },
+                    
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+           
+           
+
+           data.forEach(item => {
+            const columnDiv = document.createElement('div');
+            const containerDiv = document.createElement('div');
+
+            containerDiv.classList.add('container');
+            containerDiv.classList.add('mb-5');
+
+            const containerBodyDiv = document.createElement('div');
+            containerBodyDiv.classList.add('container-body');
+            
+            const filme = document.createElement('h1');
+            filme.classList.add('container-title');
+            filme.textContent = item.idFilmes;
+            
+                       
+            const avaliacao = document.createElement('h5');
+            avaliacao.classList.add('container-body');
+            avaliacao.textContent = item.avaliacao
+
+            const nome = document.createElement('h5');
+            nome.classList.add('containder-body');
+            nome.textContent = item.nome_usuario
+
+            avaliacao.appendChild(nome)
+            filme.appendChild(avaliacao);
+            containerBodyDiv.appendChild(filme);
+            containerDiv.appendChild(containerBodyDiv);
+            columnDiv.appendChild(containerDiv);
+
+            avaliaFilmes.appendChild(columnDiv);
+           }); 
+        })
+
+    }
+    document.getElementById('cadastroForm').addEventListener('submit',avaliaFilmes) ;    
+
+    </script>
+</html>>   
